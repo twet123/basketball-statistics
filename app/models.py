@@ -20,34 +20,17 @@ class Performance(Base):
     stl = Column("stl", Integer)
     tov = Column("tov", Integer)
 
-    def __init__(
-        self,
-        id: int,
-        player: str,
-        position: str,
-        ftm: int,
-        fta: int,
-        twopm: int,
-        twopa: int,
-        threepm: int,
-        threepa: int,
-        reb: int,
-        blk: int,
-        ast: int,
-        stl: int,
-        tov: int,
-    ) -> None:
-        self.id = id
-        self.player = player
-        self.position = position
-        self.ftm = ftm
-        self.fta = fta
-        self.twopm = twopm
-        self.twopa = twopa
-        self.threepm = threepm
-        self.threepa = threepa
-        self.reb = reb
-        self.blk = blk
-        self.ast = ast
-        self.stl = stl
-        self.tov = tov
+    def __init__(self, performance: dict[str, str]) -> None:
+        self.player = performance["PLAYER"]
+        self.position = performance["POSITION"]
+        self.ftm = int(performance["FTM"])
+        self.fta = int(performance["FTA"])
+        self.twopm = int(performance["2PM"])
+        self.twopa = int(performance["2PA"])
+        self.threepm = int(performance["3PM"])
+        self.threepa = int(performance["3PA"])
+        self.reb = int(performance["REB"])
+        self.blk = int(performance["BLK"])
+        self.ast = int(performance["AST"])
+        self.stl = int(performance["STL"])
+        self.tov = int(performance["TOV"])
