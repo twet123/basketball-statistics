@@ -26,6 +26,7 @@ async def lifespan(app: FastAPI):
 
     db.close()
     yield
+    Base.metadata.drop_all(bind=engine)
 
 
 app = FastAPI(title=settings.project_name, version=settings.version, lifespan=lifespan)
