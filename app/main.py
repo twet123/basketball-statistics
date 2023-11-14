@@ -3,7 +3,7 @@ from fastapi import FastAPI
 import csv
 from sqlalchemy.orm import Session
 
-from .config import settings
+from .settings import settings
 from .api import stats
 from .database import SessionLocal, engine
 from .models import Performance, Base
