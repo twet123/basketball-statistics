@@ -16,13 +16,14 @@ def get_player_statistics(player_full_name: str, db: Session = Depends(deps.get_
     if count == 0:
         raise HTTPException(404, "Player not found")
 
-    response = schemas.PlayerStats()
-    response.playerName = player_full_name
-    response.gamesPlayed = count
-
+    response = schemas.PlayerStats(playerName=player_full_name, gamesPlayed=count)
     for performance in query.yield_per(1000):
         response.add_performance(performance)
-
-    response.calculate_averages()
+    response.prepare_object()
 
     return response
+
+
+@router.get("/stats")
+def get_all(db: Session = Depends(deps.get_db)):
+    return db.query(models.Performance).all()
