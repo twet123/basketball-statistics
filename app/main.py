@@ -1,6 +1,7 @@
+import csv
+
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
-import csv
 from sqlalchemy.orm import Session
 
 from .settings import settings
@@ -25,7 +26,9 @@ async def lifespan(app: FastAPI):
         db.commit()
 
     db.close()
+
     yield
+
     Base.metadata.drop_all(bind=engine)
 
 
