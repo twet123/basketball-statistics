@@ -34,3 +34,47 @@ class Performance(Base):
         self.ast = int(performance["AST"])
         self.stl = int(performance["STL"])
         self.tov = int(performance["TOV"])
+
+    def get_free_thow_percentage(self) -> float:
+        return self.ftm / self.fta * 100
+
+    def get_two_point_percentage(self) -> float:
+        return self.twopm / self.twopa * 100
+
+    def get_three_point_percentage(self) -> float:
+        return self.threepm / self.threepa * 100
+
+    def get_points(self) -> int:
+        return self.ftm + 2 * self.twopm + 3 * self.threepm
+
+    def get_valorization(self) -> int:
+        return (self.get_points() + self.reb + self.blk + self.ast + self.stl) - (
+            self.fta
+            - self.ftm
+            + self.twopa
+            - self.twopm
+            + self.threepa
+            - self.threepm
+            + self.tov
+        )
+
+    def get_effective_fg_percentage(self) -> float:
+        return (
+            (self.towpm + self.threepm + 0.5 * self.threepm)
+            / (self.twopa + self.threepa)
+            * 100
+        )
+
+    def get_true_shooting_percentage(self) -> float:
+        return (
+            self.get_points()
+            / (2 * (self.twopa + self.threepa + 0.475 * self.fta))
+            * 100
+        )
+
+    def get_hollinger_assist_ratio(self) -> float:
+        return (
+            self.ast
+            / (self.twopa + self.threepa + 0.475 * self.fta + self.ast + self.tov)
+            * 100
+        )
