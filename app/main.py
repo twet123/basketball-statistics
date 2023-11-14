@@ -5,8 +5,8 @@ from sqlalchemy.orm import Session
 
 from .config import settings
 from .api import stats
-from .database import SessionLocal, engine, Base
-from .models import Performance
+from .database import SessionLocal, engine
+from .models import Performance, Base
 
 
 @asynccontextmanager
@@ -21,6 +21,8 @@ async def lifespan(app: FastAPI):
         for row in reader:
             performance = Performance(row)
             db.add(performance)
+
+        db.commit()
 
     db.close()
     yield
