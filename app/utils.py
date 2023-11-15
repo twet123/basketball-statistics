@@ -1,5 +1,9 @@
 def calculate_shooting_percentage(shots_made: int, shots_attempted: int) -> float:
-    return shots_made / shots_attempted * 100
+    try:
+        res = shots_made / shots_attempted * 100
+        return res
+    except ZeroDivisionError:
+        return 0
 
 
 def calculate_points(
@@ -46,11 +50,15 @@ def calculate_effective_fg_percentage(
     two_points_attempted: int,
     three_points_attempted: int,
 ):
-    return (
-        (two_points_made + three_points_made + 0.5 * three_points_made)
-        / (two_points_attempted + three_points_attempted)
-        * 100
-    )
+    try:
+        res = (
+            (two_points_made + three_points_made + 0.5 * three_points_made)
+            / (two_points_attempted + three_points_attempted)
+            * 100
+        )
+        return res
+    except ZeroDivisionError:
+        return 0
 
 
 def calculate_true_shooting_percentage(
@@ -59,18 +67,22 @@ def calculate_true_shooting_percentage(
     three_points_attempted: int,
     free_throw_attempted,
 ):
-    return (
-        points
-        / (
-            2
-            * (
-                two_points_attempted
-                + three_points_attempted
-                + 0.475 * free_throw_attempted
+    try:
+        res = (
+            points
+            / (
+                2
+                * (
+                    two_points_attempted
+                    + three_points_attempted
+                    + 0.475 * free_throw_attempted
+                )
             )
+            * 100
         )
-        * 100
-    )
+        return res
+    except ZeroDivisionError:
+        return 0
 
 
 def calculate_hollinger_assist_ratio(
@@ -80,14 +92,18 @@ def calculate_hollinger_assist_ratio(
     free_throw_attempted: int,
     turnovers: int,
 ):
-    return (
-        assists
-        / (
-            two_points_attempted
-            + three_points_attempted
-            + 0.475 * free_throw_attempted
-            + assists
-            + turnovers
+    try:
+        res = (
+            assists
+            / (
+                two_points_attempted
+                + three_points_attempted
+                + 0.475 * free_throw_attempted
+                + assists
+                + turnovers
+            )
+            * 100
         )
-        * 100
-    )
+        return res
+    except ZeroDivisionError:
+        return 0
